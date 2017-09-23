@@ -27,7 +27,10 @@ var constraints = {video: true};
 function successCallback(stream) {
   window.stream = stream; // stream available to console
   var video = document.querySelector("video");
-  video.src = window.URL.createObjectURL(stream);
+
+  //This is deprecated : adapter.js:4309 URL.createObjectURL(stream) is deprecated, please use elem.srcObject = stream instead.
+  //video.src = window.URL.createObjectURL(stream);
+  video.srcObject = stream;
   video.play();
 }
 
