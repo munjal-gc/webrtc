@@ -1,0 +1,18 @@
+{
+  "name": "codelab",
+  "homepage": "https://github.com/munjal-gc/webrtc",
+  "authors": [
+    "munjal <munjal.kansara@greylabs.com>"
+  ],
+  "description": "Code Lab Experiment - https://bitbucket.org/webrtc/codelab",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
