@@ -132,6 +132,27 @@ function sendData() {
   trace('Sent data: ' + data);
 }
 
+
+function closeDataChannels() {
+  trace('Closing data channels');
+  sendChannel.close();
+  trace('Closed data channel with label: ' + sendChannel.label);
+  receiveChannel.close();
+  trace('Closed data channel with label: ' + receiveChannel.label);
+  localPeerConnection.close();
+  remotePeerConnection.close();
+  localPeerConnection = null;
+  remotePeerConnection = null;
+  trace('Closed peer connections');
+  startButton.disabled = false;
+  sendButton.disabled = true;
+  closeButton.disabled = true;
+  dataChannelSend.value = "";
+  dataChannelReceive.value = "";
+  dataChannelSend.disabled = true;
+  dataChannelSend.placeholder = "Press Start, enter some text, then press Send.";
+}
+
 function gotLocalDescription(description){
   localPeerConnection.setLocalDescription(description);
   trace("Offer from localPeerConnection: \n" + description.sdp);
