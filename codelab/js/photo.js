@@ -189,7 +189,8 @@ function onDataChannelCreated(channel) {
         console.log('CHANNEL opened!!!');
     };
 
-    channel.onmessage = (webrtcDetectedBrowser == 'firefox') ? 
+
+    channel.onmessage = (adapter.browserDetails.browser == 'firefox') ? 
         receiveDataFirefoxFactory() :
         receiveDataChromeFactory();
 }
