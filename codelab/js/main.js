@@ -115,7 +115,7 @@ function handleUserMediaError(error){
 }
 
 var constraints = {video: true};
-navigator.mediaDevices.getUserMedia(constraints, handleUserMedia, handleUserMediaError);
+navigator.mediaDevices.getUserMedia(constraints).then(handleUserMedia).catch(handleUserMediaError);
 
 console.log('Getting user media with constraints', constraints);
 
