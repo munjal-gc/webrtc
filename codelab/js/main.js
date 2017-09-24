@@ -98,7 +98,7 @@ var remoteVideo = document.querySelector('#remoteVideo');
 
 function handleUserMedia(stream) {
   console.log('Adding local stream.');
-  localVideo.srcObject = stream;
+  localVideo.src = window.URL.createObjectURL(stream);
   localStream = stream;
   sendMessage('got user media');
   if (isInitiator) {
@@ -106,12 +106,16 @@ function handleUserMedia(stream) {
   }
 }
 
+function handleOtherError(error){
+  console.log('handleOtherError error: ', error);
+}
+
 function handleUserMediaError(error){
   console.log('getUserMedia error: ', error);
 }
 
 var constraints = {video: true};
-navigator.mediaDevices.getUserMedia(constraints, handleUserMedia, handleUserMediaError);
+getUserMedia(constraints, handleUserMedia, handleUserMediaError);
 
 console.log('Getting user media with constraints', constraints);
 
@@ -166,7 +170,7 @@ function handleIceCandidate(event) {
 
 function handleRemoteStreamAdded(event) {
   console.log('Remote stream added.');
-  remoteVideo.srcObject = event.stream;
+  remoteVideo.src = window.URL.createObjectURL(event.stream);
   remoteStream = event.stream;
 }
 
@@ -181,7 +185,7 @@ function doCall() {
 
 function doAnswer() {
   console.log('Sending answer to peer.');
-  pc.createAnswer(setLocalAndSendMessage, null, sdpConstraints);
+  pc.createAnswer(setLocalAndSendMessage, handleOtherError, sdpConstraints);
 }
 
 function setLocalAndSendMessage(sessionDescription) {
@@ -223,7 +227,7 @@ function requestTurn(turn_url) {
 
 function handleRemoteStreamAdded(event) {
   console.log('Remote stream added.');
-  remoteVideo.srcObject = event.stream;
+  remoteVideo.src = window.URL.createObjectURL(event.stream);
   remoteStream = event.stream;
 }
 
@@ -256,7 +260,7 @@ function stop() {
 // Set Opus as the default audio codec if it's present.
 function preferOpus(sdp) {
   var sdpLines = sdp.split('\r\n');
-  var mLineIndex;
+  var mLineIndex = null;
   // Search for m line.
   for (var i = 0; i < sdpLines.length; i++) {
       if (sdpLines[i].search('m=audio') !== -1) {
@@ -309,6 +313,7 @@ function setDefaultCodec(mLine, payload) {
 
 // Strip CN from sdp before CN constraints is ready.
 function removeCN(sdpLines, mLineIndex) {
+  console.log("sdpLines : ", sdpLines, ", mLineIndex: ", mLineIndex);
   var mLineElements = sdpLines[mLineIndex].split(' ');
   // Scan from end for the convenience of removing an item.
   for (var i = sdpLines.length-1; i >= 0; i--) {
@@ -327,3 +332,4 @@ function removeCN(sdpLines, mLineIndex) {
   sdpLines[mLineIndex] = mLineElements.join(' ');
   return sdpLines;
 }
+
