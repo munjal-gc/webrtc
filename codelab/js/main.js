@@ -260,7 +260,7 @@ function stop() {
 // Set Opus as the default audio codec if it's present.
 function preferOpus(sdp) {
   var sdpLines = sdp.split('\r\n');
-  var mLineIndex;
+  var mLineIndex = null;
   // Search for m line.
   for (var i = 0; i < sdpLines.length; i++) {
       if (sdpLines[i].search('m=audio') !== -1) {
