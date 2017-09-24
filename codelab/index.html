@@ -11,19 +11,15 @@
 </head>
 
 <body>
-<video id="localVideo" autoplay></video>
-<video id="remoteVideo" autoplay></video> 
-<br/>
-<textarea id="dataChannelSend" disabled></textarea>
-<textarea id="dataChannelReceive" disabled></textarea>
-<div>
-  <button id="startButton">Start</button>
-  <button id="callButton">Call</button>
-  <button id="hangupButton">Hang Up</button>
+<div id='container'>
 
-  <button id="sendButton">Send</button>
-  <button id="closeButton">Stop</button>
+  <div id='videos'>
+    <video id='localVideo' autoplay muted></video>
+    <video id='remoteVideo' autoplay></video>
+  </div>
+
 </div>
+
 <script src='/socket.io/socket.io.js'></script>
 <script src='bower_components/webrtc-adapter/release/adapter.js'></script>
 <script src='js/main.js'></script>
