@@ -98,7 +98,7 @@ var remoteVideo = document.querySelector('#remoteVideo');
 
 function handleUserMedia(stream) {
   console.log('Adding local stream.');
-  localVideo.src = window.URL.createObjectURL(stream);
+  localVideo.srcObject = stream;
   localStream = stream;
   sendMessage('got user media');
   if (isInitiator) {
@@ -115,7 +115,7 @@ function handleUserMediaError(error){
 }
 
 var constraints = {video: true};
-getUserMedia(constraints, handleUserMedia, handleUserMediaError);
+navigator.mediaDevices.getUserMedia(constraints, handleUserMedia, handleUserMediaError);
 
 console.log('Getting user media with constraints', constraints);
 
@@ -170,7 +170,7 @@ function handleIceCandidate(event) {
 
 function handleRemoteStreamAdded(event) {
   console.log('Remote stream added.');
-  remoteVideo.src = window.URL.createObjectURL(event.stream);
+  remoteVideo.srcObject = event.stream;
   remoteStream = event.stream;
 }
 
@@ -227,7 +227,7 @@ function requestTurn(turn_url) {
 
 function handleRemoteStreamAdded(event) {
   console.log('Remote stream added.');
-  remoteVideo.src = window.URL.createObjectURL(event.stream);
+  remoteVideo.srcObject = event.stream;
   remoteStream = event.stream;
 }
 
@@ -260,7 +260,7 @@ function stop() {
 // Set Opus as the default audio codec if it's present.
 function preferOpus(sdp) {
   var sdpLines = sdp.split('\r\n');
-  var mLineIndex = null;
+  var mLineIndex;
   // Search for m line.
   for (var i = 0; i < sdpLines.length; i++) {
       if (sdpLines[i].search('m=audio') !== -1) {
