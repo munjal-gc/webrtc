@@ -105,7 +105,7 @@ function getMediaSuccessCallback(stream) {
     console.log('getUserMedia video stream URL:', stream);
     window.stream = stream; // stream available to console
 
-    video.srcObject = streamURL;
+    video.srcObject = stream;
     show(snapBtn);
 }
 
