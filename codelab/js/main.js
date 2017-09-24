@@ -2,7 +2,7 @@ var isInitiator;
 
 room = prompt("Enter room name:");
 
-var socket = io.connect("https://chat.bidclips.ml/ns");
+var socket = io.connect("https://chat.bidclips.ml/ns/socket.io");
 
 if (room !== "") {
   console.log('Joining room ' + room);
